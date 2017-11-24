@@ -35,9 +35,9 @@ El tercer parcial del curso sistemas operativos trata sobre la creación de serv
 
 ### Desarrollo  
 3. Para poder desplegar un esquema como el mostrado en la **figura 1**, se necesitaron:  
-  -1 Consul Server funcionando como Discovery Service
-  -1 Load Balance
-  -4 Consul Clients, cada uno con un microservicio igual (Despliegue página web), pero con contenido diferente en su cuerpo
+  -1 Consul Server funcionando como Discovery Service  
+  -1 Load Balance  
+  -4 Consul Clients, cada uno con un microservicio igual (Despliegue página web), pero con contenido diferente en su cuerpo  
  
 **PASO 1:** Empezando mostrando la implementación de los clientes. Primero que nada se implementa el código del microservicio en python, creamos un archivo con extensión .py como el siguiente:
  
@@ -145,6 +145,8 @@ Y al usar un navegador y poner la dirección IP de cualquiera de los clientes, n
 
 Consul, nos va mostrando los sucesos en la conexión, esta es una vista desde el servidor 
 ![][4]  
+
+Ahora, implementaremos el **balanceador de carga**, que tiene como tarea controlar el flujo de las solicitudes externas a los consul clients, registrando el servidor y haciendo comunicación con el. 
 
 
 
