@@ -140,8 +140,12 @@ consul members
 Pudimos observar una lista de todas las máquinas conectadas usando consul, que es la siguiente
 ![][2]
 
-Y al usar un navegador y poner la dirección IP de cualquiera de los clientes, nos desplegaría un mensaje que es el que configuramos en un inicio. Por ejemplo uno de ellos nos muestra
+Y al usar un navegador y poner la dirección IP de cualquiera de los clientes, nos desplegaría un mensaje que es el que configuramos en un inicio. Por ejemplo uno de ellos nos muestra  
 ![][3]
+
+Consul, nos va mostrando los sucesos en la conexión, esta es una vista desde el servidor 
+![][4]  
+
 
 
 ### Referencias
@@ -149,5 +153,6 @@ https://github.com/ICESI/so-microservices-python
 http://microservices.io/patterns/microservices.html
 
 [1]: images/Microservices_Deployment.png
-[2]: images/consul_members.png
-[3]: images/browser_coni.png
+[2]: images/consul_members.PNG
+[3]: images/browser_coni.PNG
+[4]: images/consul_logs.PNG
