@@ -148,6 +148,43 @@ Consul, nos va mostrando los sucesos en la conexión, esta es una vista desde el
 
 Ahora, implementaremos el **balanceador de carga**, que tiene como tarea controlar el flujo de las solicitudes externas a los consul clients, registrando el servidor y haciendo comunicación con el. 
 
+Desde el **balanceador** instalamos lo siguiente
+
+```
+# yum install -y wget haproxy unzip
+# wget https://releases.hashicorp.com/consul-template/0.19.4/consul-template_0.19.4_linux_amd64.zip -P /tmp
+# unzip /tmp/consul-template_0.19.4_linux_amd64.zip -d /tmp
+# mv /tmp/consul-template /usr/bin
+# mkdir /etc/consul-template
+```
+
+Abrimos el puerto 5000
+```
+# firewall-cmd --zone=public --add-port=5000/tcp --permanent
+# firewall-cmd --reload
+```
+Ahora configuramos el archivo haproxy.pl
+```
+vi /etc/consul-template/haproxy.tpl
+```
+Tomando de referencia lo siguiente
+
+![][5]  
+
+Finalmente, reiniciamos el servicio
+
+```
+sudo systemctl restart haproxy
+```
+Y podremos observar el **balanceador** ejecutando
+
+![][6]  
+
+4. Para probar que el **balanceador** está asignando las solicitudes a los consul clientes, hacemos un curl con la dirección IP del balanceador, y obtendremos distintos contenidos al pedir el microservicio, que son lo que configuraron los 4 clientes en un inicio en el archivo .py
+
+![][7]  
+
+5. 
 
 
 ### Referencias
@@ -158,3 +195,6 @@ http://microservices.io/patterns/microservices.html
 [2]: images/consul_members.PNG
 [3]: images/browser_coni.PNG
 [4]: images/consul_logs.PNG
+[5]: images/configuracionConsulTemplate.png
+[6]: images/BalanceadorCorriendo.png
+[7]: images/curlBalanceador.png
