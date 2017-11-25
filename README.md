@@ -184,17 +184,35 @@ Y podremos observar el **balanceador** ejecutando
 
 ![][7]  
 
-5. 
+5. Para agregar un microservicio diferente al ambiente ya existente, debemos tener en cuenta lo siguiente:
 
+**API-GATEWAY:** Con un API-GATEWAY, evitariamos que implementar el código del mismo microservicio en varias máquinas. Lo que haría un consul client en un ambiente con esta herramienta implementada, es consultar el código del microservicio que se le encargó en este tipo de GATEWAY. Con esto, no tendremos que hacer **n** actualizaciones del microservicio en **n** máquinas, si no una sola vez en el API-GATEWAY. Adicionalmente, se optimiza espacio y tiempo, ya que todas las máquinas podrían ejecutar todos los microservicios.
+
+**REACTIVE PARADIGM:** Si el nuevo servicio está involucrado directamente con el ya implementado, como que el output del nuevo microservicio B se despliegue en el microservicio A, es posible aprovechar la programación reactiva, donde todos los microservicios A se actualizarán inmediatamente el microservicio B se ejecute.
+
+**Load Balancer:** Es nuestro balanceador de carga ya implementado, va a ser necesario para distribuir las solicitudes a las máquinas, ya que no hay forma de identificar que microservicio se requiere a menos que el **balanceador** exista.
+
+**Prótocolo publicador/suscriptor:** Es la metodología que implementamos, dónde las máquinas con los microservicios se suscriben al **Discovery server**, para así tener un control sobre ellas y su ejecución.
+
+Con estas herramientas y conceptos podremos implementar un servicio así:
+
+1. Si queremos y estamos en la capacidad, podremos configurar un API-GATEWAY e implementaremos allí el viejo y nuevo código del microservicio. De lo contrario, implementaremos el nuevo microservicio en las máquinas ya existentes.
+
+2. Registramos el nuevo servicio en el load-balancer, para que los clientes que hagan las solicitudes, puedan consumir el viejo y nuevo microservicio.
+
+Con esto, finalmente podremos tener 2 microservicios distintos en nuestro ambiente.
 
 ### Referencias
 https://github.com/ICESI/so-microservices-python  
-http://microservices.io/patterns/microservices.html
+http://microservices.io/patterns/microservices.html  
+https://www.upcloud.com/support/haproxy-load-balancer-centos/  
+http://microservices.io/patterns/apigateway.html
+https://en.wikipedia.org/wiki/Reactive_programming
 
 [1]: images/Microservices_Deployment.png
 [2]: images/consul_members.PNG
 [3]: images/browser_coni.PNG
 [4]: images/consul_logs.PNG
-[5]: images/configuracionConsulTemplate.png
+[5]: images/configuracionConsulTemplates.png
 [6]: images/BalanceadorCorriendo.png
-[7]: images/curlBalanceador.png
+[7]: images/curl_balancer.PNG
